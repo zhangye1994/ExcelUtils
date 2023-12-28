@@ -2,8 +2,8 @@ import openpyxl
 import openpyxl.workbook as xlsx_work_book
 import openpyxl.worksheet as xlsx_sheet
 
-from ExcelUtils.read.Reader import Reader
-from ExcelUtils.utils import Printer
+from read.Reader import Reader
+from utils import Printer
 
 
 class NewerReader(Reader):
@@ -62,7 +62,6 @@ class NewerReader(Reader):
         :param column_names: 列名
         :return: 以字典格式返回对应字段所在的列
         """
-        row_line += 1
         columns = self.get_columns(sheet_name)
         column_index = {}
         for index in range(0, columns):
@@ -92,7 +91,7 @@ class NewerReader(Reader):
             return ""
         return str(value)
 
-    def get_rows_value(self, sheet_name: str):
+    def get_row_values(self, sheet_name: str):
         """
         按行读取Excel所有数据
         :param sheet_name: sheet名称
@@ -104,6 +103,26 @@ class NewerReader(Reader):
         for row_item in row_values:
             row_result.append(row_item)
         return row_result
+
+    def get_column_values(self, sheet_name: str, column_index=None):
+        """
+        按列读取Excel所有数据
+        :param sheet_name: sheet名称
+        :param column_index: 对应的列名索引数组
+        :return: 二维数组格式Excel数据
+        """
+        if column_index is None:
+            Printer.print_warn("No column index specified")
+            return
+        sheet: xlsx_sheet = self.open_sheet(sheet_name)
+        column_result = []
+        row_values = sheet.iter_rows(values_only=True)
+        for row_item in row_values:
+            values = []
+            for index in column_index:
+                values.append(row_item[index])
+            column_result.append(values)
+        return column_result
 
     def get_all_value(self, sheet_name: str):
         """

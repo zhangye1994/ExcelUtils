@@ -1,7 +1,7 @@
 import os
 
 # 判断指定路径是文件还是目录
-from ExcelUtils.utils import Printer as printer
+from utils import Printer as printer
 
 
 def get_file_type(file_path):

@@ -2,8 +2,8 @@ import xlrd
 import xlrd.book as xls_work_book
 import xlrd.sheet as xls_sheet
 
-from ExcelUtils.read.Reader import Reader
-from ExcelUtils.utils import Printer
+from read.Reader import Reader
+from utils import Printer
 
 
 class OlderReader(Reader):
@@ -89,7 +89,7 @@ class OlderReader(Reader):
             return ""
         return str(value)
 
-    def get_rows_value(self, sheet_name: str):
+    def get_row_values(self, sheet_name: str):
         """
         按行读取Excel所有数据
         :param sheet_name: sheet名称
@@ -101,6 +101,27 @@ class OlderReader(Reader):
         for row_line in range(rows):
             row_result.append(sheet.row_values(row_line))
         return row_result
+
+    def get_column_values(self, sheet_name: str, column_index=None):
+        """
+        按列读取Excel所有数据
+        :param sheet_name: sheet名称
+        :param column_index: 对应的列名索引数组
+        :return: 二维数组格式Excel数据
+        """
+        if column_index is None:
+            Printer.print_warn("No column index specified")
+            return
+        sheet: xls_sheet = self.open_sheet(sheet_name)
+        column_result = []
+        rows = self.get_rows(sheet_name)
+        for row_line in range(rows):
+            row_values = sheet.row_values(row_line)
+            values = []
+            for index in column_index:
+                values.append(row_values[index])
+            column_result.append(values)
+        return column_result
 
     def get_all_value(self, sheet_name: str):
         """

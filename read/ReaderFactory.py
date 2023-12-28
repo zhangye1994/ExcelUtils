@@ -1,5 +1,5 @@
-from ExcelUtils.read.OlderReader import OlderReader
-from ExcelUtils.read.NewerReader import NewerReader
+from read.OlderReader import OlderReader
+from read.NewerReader import NewerReader
 
 
 def create_reader(file_path: str):

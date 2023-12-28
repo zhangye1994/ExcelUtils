@@ -60,10 +60,20 @@ class Reader(ABC):
         pass
 
     @abstractmethod
-    def get_rows_value(self, sheet_name: str):
+    def get_row_values(self, sheet_name: str):
         """
         按行读取Excel所有数据
         :param sheet_name: sheet名称
+        :return: 二维数组格式Excel数据
+        """
+        pass
+
+    @abstractmethod
+    def get_column_values(self, sheet_name: str, column_index):
+        """
+        按列读取Excel所有数据
+        :param sheet_name: sheet名称
+        :param column_index: 对应的列名索引数组
         :return: 二维数组格式Excel数据
         """
         pass
