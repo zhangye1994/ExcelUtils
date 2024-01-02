@@ -1,6 +1,5 @@
 import os
 
-# 判断指定路径是文件还是目录
 from utils import Printer as printer
 
 
@@ -8,6 +7,9 @@ def get_file_type(file_path):
     """
      返回指定路径文件类型
      文件：0 目录：1 其他：-1
+
+    :param file_path: 文件路径
+    :return: 文件标识
     """
     if os.path.isfile(file_path):
         return 0
@@ -19,7 +21,10 @@ def get_file_type(file_path):
 
 def get_file_paths(directory):
     """
-     获取指定目录下所有文件完整路径集合
+    获取指定目录下所有文件完整路径集合
+
+    :param directory: 目录名
+    :return: 目录及子目录下所有文件路径集合
     """
     file_paths = []
     for root, directories, files in os.walk(directory):
@@ -32,6 +37,9 @@ def get_file_paths(directory):
 def get_dirs(directory):
     """
      获取指定目录下所有文件夹完整路径集合
+
+    :param directory: 目录路径
+    :return: 子目录路径集合
     """
     dirs = []
     for root, directories, files in os.walk(directory):
@@ -44,7 +52,10 @@ def get_dirs(directory):
 def get_file_names(directory):
     """
      获取指定目录下所有文件和目录名集合
-        1.不包含子目录下的文件和目录名
+        *不包含子目录下的文件和目录名
+
+    :param directory: 目录路径
+    :return: 当前路径下所有文件和目录路径集合
     """
     file_names = []
     files_and_folders = os.listdir(directory)
@@ -56,6 +67,10 @@ def get_file_names(directory):
 def rename(old_name, new_name):
     """
      重命名目录或者文件
+
+    :param old_name: 待修改的路径名
+    :param new_name: 新路径
+    :return: Non
     """
     try:
         if os.path.isfile(old_name):
@@ -72,7 +87,10 @@ def rename(old_name, new_name):
 
 def delete(directory):
     """
-     删除指定目录及目录下所有子目录和文件
+    删除指定目录及目录下所有子目录和文件
+
+    :param directory: 目录
+    :return: Non
     """
     if os.path.exists(directory):
         for file in os.listdir(directory):

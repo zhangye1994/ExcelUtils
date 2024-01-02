@@ -13,7 +13,8 @@ class OlderReader(Reader):
     def __init__(self, file_path):
         """
         初始化Reader，并打开指定工作薄
-        :param file_path:
+
+        :param file_path: sheet路径
         """
         self.file_path = file_path
         self.wb = xlrd.open_workbook(file_path)
@@ -21,7 +22,8 @@ class OlderReader(Reader):
     def get_sheet_names(self):
         """
         获取当前workbook所有的sheet名称
-        :return:sheet名称集合
+
+        :return: sheet名称集合
         """
         sheet_names = self.wb.sheet_names()
         return sheet_names
@@ -29,6 +31,7 @@ class OlderReader(Reader):
     def open_sheet(self, sheet_name):
         """
         打开指定名称Sheet
+
         :param sheet_name: sheet名称
         :return: 返回sheet
         """
@@ -39,6 +42,7 @@ class OlderReader(Reader):
     def get_rows(self, sheet_name):
         """
         获取excel表格行数
+
         :param sheet_name: sheet名称
         :return: 行数
         """
@@ -48,6 +52,7 @@ class OlderReader(Reader):
     def get_columns(self, sheet_name: str):
         """
         获取excel表格列数
+
         :param sheet_name: sheet名称
         :return: 列数
         """
@@ -57,6 +62,7 @@ class OlderReader(Reader):
     def get_columns_by_name(self, sheet_name: str, column_names, row_line=0):
         """
         获取指定行对应列值所在列号
+
         :param row_line: 从指定行读取对应的列值，默认首行
         :param sheet_name: sheet名称
         :param column_names: 列名
@@ -75,6 +81,7 @@ class OlderReader(Reader):
     def get_single_value(self, sheet_name: str, row, col) -> str:
         """
         根据行列号获取对应的值
+
         :param sheet_name: sheet名称
         :param row: 行号
         :param col: 列号
@@ -92,6 +99,7 @@ class OlderReader(Reader):
     def get_row_values(self, sheet_name: str):
         """
         按行读取Excel所有数据
+
         :param sheet_name: sheet名称
         :return: 二维数组格式Excel数据
         """
@@ -105,6 +113,7 @@ class OlderReader(Reader):
     def get_column_values(self, sheet_name: str, column_index=None):
         """
         按列读取Excel所有数据
+
         :param sheet_name: sheet名称
         :param column_index: 对应的列名索引数组
         :return: 二维数组格式Excel数据
@@ -126,6 +135,7 @@ class OlderReader(Reader):
     def get_all_value(self, sheet_name: str):
         """
         按行列逐个获取excel所有数据
+
         :param sheet_name: sheet名称
         :return: 一维数组格式Excel数据
         """
@@ -142,6 +152,7 @@ class OlderReader(Reader):
         """
         关闭工作簿
         封装原始代码，闭环整个Reader
+
         :return: NA
         """
         pass
