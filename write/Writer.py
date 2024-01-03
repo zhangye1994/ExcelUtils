@@ -38,7 +38,7 @@ class ExcelWriter:
         sheet = self.sheets[sheet_name]
         for row in range(0, len(data)):
             for column in range(0, len(data[row])):
-                sheet.write_row(row, column, data[row][column])
+                sheet.write_row(row, column, [data[row][column]])
         return self
 
     def write_by_column(self, sheet_name: str, data, column_index):
@@ -61,7 +61,7 @@ class ExcelWriter:
         sheet = self.sheets[sheet_name]
         for row in range(0, len(data)):
             for column in column_index:
-                sheet.write(row, column, data[row][column])
+                sheet.write(row, column, [data[row][column]])
         return self
 
     def set_width(self, sheet_name, column, width=20):
