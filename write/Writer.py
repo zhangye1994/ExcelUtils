@@ -64,21 +64,22 @@ class ExcelWriter:
                 sheet.write(row, column, [data[row][column]])
         return self
 
-    def set_width(self, sheet_name, column, width=20):
+    def set_width(self, sheet_name, start=0, end=0, width=20):
         """
         设置worksheet指定列宽度
 
         :param sheet_name: sheet名
-        :param column: 指定列
+        :param start: 起始列
+        :param end: 结束列
         :param width: 指定宽度
         :return: 对象自身
         """
-        self.sheets[sheet_name].set_column(column, width)
+        self.sheets[sheet_name].set_column(start, end, width)
         return self
 
     def set_height(self, sheet_name, row, height=20):
         """
-        设置worksheet指定列宽度
+        设置worksheet指定行高度
 
         :param sheet_name: sheet名
         :param row: 指定行
@@ -90,9 +91,54 @@ class ExcelWriter:
         self.sheets[sheet_name].set_row(row, height)
         return self
 
-    def format(self, formatted=FormatConfiguration()):
+    def apply_column_format(self, sheet_name, start, end, formatted=FormatConfiguration()):
         """
-       采用链式调用的方式设置表格的样式
+       应用格式化到表格列
+
+        :param sheet_name: sheet名
+        :param start: 起始列
+        :param end: 结束列
+        :param formatted: 指定样式配置
+        :return: 对象自身
+        """
+        if not self.sheets.keys().__contains__(sheet_name):
+            self.add_worksheet(sheet_name)
+        self.sheets[sheet_name].set_column(start, end, cell_format=formatted.formatted_text)
+        return self
+
+    def apply_row_format(self, sheet_name, row, formatted=FormatConfiguration()):
+        """
+       应用格式化到表格行
+
+        :param sheet_name: sheet名
+        :param row: 指定行
+        :param formatted: 指定样式配置
+        :return: 对象自身
+        """
+        if not self.sheets.keys().__contains__(sheet_name):
+            self.add_worksheet(sheet_name)
+        self.sheets[sheet_name].set_row(row, cell_format=formatted.formatted_text)
+        return self
+
+    def apply_rows_format(self, sheet_name, start, end, formatted=FormatConfiguration()):
+        """
+       应用格式化到表格行
+
+        :param sheet_name: sheet名
+        :param start: 起始行
+        :param end: 结束行
+        :param formatted: 指定样式配置
+        :return: 对象自身
+        """
+        if not self.sheets.keys().__contains__(sheet_name):
+            self.add_worksheet(sheet_name)
+        for row in range(start, end + 1):
+            self.sheets[sheet_name].set_row(row, cell_format=formatted.formatted_text)
+        return self
+
+    def add_format(self, formatted=FormatConfiguration()):
+        """
+       采用链式调用的方式添加样式到表格中
 
         :param formatted: 指定样式配置
         :return: 对象自身
